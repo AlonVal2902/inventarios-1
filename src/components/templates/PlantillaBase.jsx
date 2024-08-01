@@ -2,7 +2,7 @@ import React, { useState } from "react"; // Importar useState desde React
 import styled from "styled-components";
 import {Header} from "../../index"
 
-export function HomeTemplate() {
+export function PlantillaBase() {
   const [state, setState] = useState(false);
 
   return (

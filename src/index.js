@@ -25,3 +25,6 @@ export * from './styles/variables';
 export * from './supabase/crudUsuarios';
 export * from './supabase/supabase.config';
 export * from './utils/dataEstatica';
+export * from './components/moleculas/BtnCircular';
+export * from './components/organismos/Header';
+export * from './components/organismos/ListaMenuDesplegable';
