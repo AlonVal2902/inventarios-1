@@ -12,6 +12,7 @@ export  const AuthContextProvider =
                 if(session?.user==null){
                     setUser(null)
                 }else{
+                    console.log("data del usuario",session?.user)
                     setUser(session?.user); 
 
                 }
