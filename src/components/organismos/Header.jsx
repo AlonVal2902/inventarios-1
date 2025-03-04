@@ -1,43 +1,51 @@
 import styled from "styled-components";
-import { BtnCircular, UserAuth, v,ListaMenuDesplegable,DesplegableUser, useAuthStore } from "../../index";
+import {
+  BtnCircular,
+  v,
+  ListaMenuDesplegable,
+  DesplegableUser,
+} from "../../index";
+import { UserAuth } from "../../context/AuthContent";
+
 export function Header({ stateConfig }) {
-  const {signOut} = useAuthStore()
-  const { user } = UserAuth();
+  const { user, logout } = UserAuth(); // Usar logout en lugar de signout
+
   const funcionXtipo = async (p) => {
     if (p.tipo === "cerrarsesion") {
-     
-      await signOut();
+      await logout(); // Ahora llamamos correctamente a la función de logout
     }
   };
+
   return (
     <Container>
-      
       <Datauser onClick={stateConfig.setState}>
         <div className="imgContainer">
-          <img src="https://i.ibb.co/kGYgRZ8/programador.png" />
+          <img src="https://i.ibb.co/kGYgRZ8/programador.png" alt="User" />
         </div>
+
         <BtnCircular
           icono={<v.iconocorona />}
           width="25px"
           height="25px"
-          bgcolor={`linear-gradient(15deg, rgba(255, 88, 58, 0.86) 9%, #f8bf5b 100%);`}
+          bgcolor="linear-gradient(15deg, rgba(255, 88, 58, 0.86) 9%, #f8bf5b 100%)"
           textcolor="#ffffff"
           fontsize="11px"
           translatex="-50px"
           translatey="-12px"
         />
-        <span className="nombre">{user.email}</span>
+
         {stateConfig.state && (
-        <ListaMenuDesplegable
-          data={DesplegableUser}
-          top="62px"
-          funcion={(p) => funcionXtipo(p)}
-        />
-      )}
+          <ListaMenuDesplegable
+            data={DesplegableUser}
+            top="62px"
+            funcion={funcionXtipo}
+          />
+        )}
       </Datauser>
     </Container>
   );
 }
+
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -45,6 +53,7 @@ const Container = styled.div`
   position: relative;
   justify-content: end;
 `;
+
 const Datauser = styled.div`
   z-index: 10;
   position: relative;
@@ -58,6 +67,7 @@ const Datauser = styled.div`
   border-radius: 50px;
   margin: 15px;
   cursor: pointer;
+
   .imgContainer {
     height: 40px;
     width: 40px;
@@ -69,14 +79,17 @@ const Datauser = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
     img {
       width: 100%;
       object-fit: cover;
     }
   }
+
   &:hover {
     background-color: ${({ theme }) => theme.bg3};
   }
+
   .nombre {
     width: 100%;
     font-weight: 500;

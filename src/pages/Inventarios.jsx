@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { LoginTemplate } from "../index";
+import { InventariosTemplate } from "../index";
 import { SpinnerLoader } from "../components/moleculas/SpinnerLoader";
 
-export function Login() {
+export function Inventarios() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,5 +20,5 @@ export function Login() {
     fetchData();
   }, []);
 
-  return loading ? <SpinnerLoader /> : <LoginTemplate />;
+  return loading ? <SpinnerLoader /> : <InventariosTemplate />;
 }

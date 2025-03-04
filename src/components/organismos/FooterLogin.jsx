@@ -5,14 +5,13 @@ export function FooterLogin() {
     <Container>
       <section className="lock">
         <GiPadlock />
-   
       </section>
       <section className="derechos">
         <span>CAVTEX S.A.C - RUC: 20521828243</span>
         <div className="separador"></div>
         <span>Todos los derechos reservados</span>
         <div className="separador"></div>
-        <span>© 2024 </span>
+        <span>© 2025 </span>
       </section>
     </Container>
   );
@@ -22,27 +21,27 @@ const Container = styled.div`
   flex-direction: column;
   font-size: 12.2px;
   color: #91a4b7;
-  gap:5px;
+  gap: 5px;
   .lock {
-    border-bottom: 1px solid rgba(145, 164, 183,0.3);
-    gap:5px;
-    display:flex;
-    align-items:center;
+    border-bottom: 1px solid rgba(145, 164, 183, 0.3);
+    gap: 5px;
+    display: flex;
+    align-items: center;
   }
   .derechos {
     display: flex;
     justify-content: space-between;
-   .separador{
-    width:1px;
-    background-color:rgba(145, 164, 183,0.3);
-    margin-top:4px;
-    height:80%;
-    align-items:center;
-    display:flex;
-   }
-    span{
-      margin-top:5px;
-      margin-left:12px;
+    .separador {
+      width: 1px;
+      background-color: rgba(145, 164, 183, 0.3);
+      margin-top: 4px;
+      height: 80%;
+      align-items: center;
+      display: flex;
+    }
+    span {
+      margin-top: 5px;
+      margin-left: 12px;
     }
   }
 `;
