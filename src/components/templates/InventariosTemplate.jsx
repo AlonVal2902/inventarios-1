@@ -11,6 +11,7 @@ export function InventariosTemplate() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filtroPresentacion, setFiltroPresentacion] = useState("");
+  const [filtroDescripcion, setFiltroDescripcion] = useState("");
 
   const handleCloseModal = () => {
     setSelectedProducto(null);
@@ -52,14 +53,19 @@ export function InventariosTemplate() {
   if (loading) return <div>Cargando inventario...</div>;
   if (error) return <ErrorMessage>{error}</ErrorMessage>;
 
-  const productosFiltrados = filtroPresentacion
-    ? productos.filter(
-        (producto) =>
-          producto.presentacion &&
+  const productosFiltrados = productos
+    .filter((producto) =>
+      filtroPresentacion
+        ? producto.presentacion &&
           producto.presentacion.toLowerCase() ===
             filtroPresentacion.toLowerCase()
-      )
-    : productos;
+        : true
+    )
+    .filter((producto) =>
+      producto.descripcion
+        .toLowerCase()
+        .includes(filtroDescripcion.toLowerCase())
+    );
 
   return (
     <Container>
@@ -79,6 +85,16 @@ export function InventariosTemplate() {
           <Option value="rollo">Rollos</Option>
           <Option value="cono">Conos</Option>
         </Select>
+      </FiltroContainer>
+
+      <FiltroContainer>
+        <label>Buscar por descripción</label>
+        <Input
+          type="text"
+          value={filtroDescripcion}
+          onChange={(e) => setFiltroDescripcion(e.target.value)}
+          placeholder="Ingrese la descripción"
+        />
       </FiltroContainer>
 
       <Grid>
@@ -139,18 +155,31 @@ export function InventariosTemplate() {
   );
 }
 
-const Container = styled.div`
-  height: 100vh;
+// Estilos adicionales para el nuevo campo de entrada
+const Input = styled.input`
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
   width: 100%;
-  background-color: ${(props) => props.theme.body};
+  max-width: 300px;
+`;
+const Container = styled.div`
+  width: 100%;
+  background-color: ${(props) => props.theme.body}; // Fondo de color
   color: ${(props) => props.theme.text};
   display: flex;
   flex-direction: column;
-  display: flex;
-  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 100vh; // Asegura que cubra al menos toda la pantalla
 
-  .header {
-    color: rgba(98, 93, 164, 0.14);
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 5px;
   }
 `;
 
@@ -159,6 +188,14 @@ const Title = styled.h1`
   font-size: 2rem;
   color: ${(props) => props.theme.text};
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const FiltroContainer = styled.div`
@@ -166,11 +203,28 @@ const FiltroContainer = styled.div`
     font-size: 1.4rem;
     margin-left: 50px;
     margin-top: 6px;
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+      margin-left: 20px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+      margin-left: 10px;
+    }
   }
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px;
+  }
 `;
 
 const Select = styled.select`
@@ -181,8 +235,18 @@ const Select = styled.select`
   font-size: 1rem;
   background-color: white;
   cursor: pointer;
-  text-color: black;
+  color: black;
   transition: all 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: 80%;
+  }
+
+  @media (max-width: 480px) {
+    width: 90%;
+    font-size: 0.9rem;
+  }
 
   &:focus {
     outline: none;
@@ -197,9 +261,8 @@ const Option = styled.option`
   background-color: white;
   color: #333;
 
-  &:hover {
-    background-color: rgb(118, 162, 209);
-    color: "black";
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
   }
 `;
 
@@ -209,6 +272,18 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 25px;
+
+  @media (max-width: 768px) {
+    margin-left: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  @media (max-width: 480px) {
+    margin-left: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
 `;
 
 const Card = styled.div`
@@ -219,9 +294,41 @@ const Card = styled.div`
   cursor: pointer;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
+  }
+
+  p {
+    font-size: 1rem;
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.8rem;
+    }
   }
 `;
 
@@ -245,12 +352,21 @@ const ModalOverlay = styled.div`
 const ModalContent = styled.div`
   background-color: #fff;
   color: #000;
-  padding: 10px;
+  padding: 20px;
   border-radius: 8px;
   max-width: 600px;
-  width: 100%;
+  width: 90%;
   text-align: center;
   animation: fadeIn 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -273,6 +389,11 @@ const CloseButton = styled.button`
   font-weight: bold;
   transition: background 0.2s ease-in-out;
 
+  @media (max-width: 480px) {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
   &:hover {
     background: #cc0000;
   }
@@ -282,6 +403,14 @@ const LoadingMessage = styled.p`
   text-align: center;
   font-size: 1.2rem;
   color: #666;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const ErrorMessage = styled.p`
@@ -289,6 +418,14 @@ const ErrorMessage = styled.p`
   text-align: center;
   font-size: 1.1rem;
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 export default InventariosTemplate;

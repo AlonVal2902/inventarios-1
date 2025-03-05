@@ -12,10 +12,13 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const checkUserSession = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/me", {
-          method: "GET",
-          credentials: "include",
-        });
+        const response = await fetch(
+          "https://backendinventarios-production.up.railway.app/api/me",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
 
         if (!response.ok) throw new Error("No autorizado");
 
@@ -42,12 +45,15 @@ export const AuthContextProvider = ({ children }) => {
   // 🔐 **Función de login**
   const login = async (email, password) => {
     try {
-      const response = await fetch("http://localhost:3001/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "https://backendinventarios-production.up.railway.app/api/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Error desconocido");
@@ -63,10 +69,13 @@ export const AuthContextProvider = ({ children }) => {
   // 🚪 **Función de logout**
   const logout = async () => {
     try {
-      await fetch("http://localhost:3001/api/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      await fetch(
+        "https://backendinventarios-production.up.railway.app/api/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
       setUser(null);
       navigate("/login");
     } catch (error) {
