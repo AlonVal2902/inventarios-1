@@ -27,7 +27,7 @@
     "recharts": "^2.15.0",
     "styled-components": "^6.1.1",
     "sweetalert2": "^11.12.3",
-    "zustand": "^4.5.4",
+    "zustand": "^4.5.4
     
   },
   "devDependencies": {
@@ -37,7 +37,7 @@
     "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.4",
+    "eslint-plugin-react-refresh": "^0.4.4",  
     "vite": "^5.0.0"
   }
 }
